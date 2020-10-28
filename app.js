@@ -28,6 +28,20 @@ app.get("/login",(req,res)=>{
     res.render("login");
 })
 
+app.post("/login",(req,res)=>{
+    User.findOne({email: req.body.username,password: req.body.password},(err,result)=>{
+        if(!err){
+            if(result){
+                res.render("secrets")
+            }else{
+                res.send("There is a problem with email or password")
+            }
+        }else{
+            res.send(err);
+        }
+    })
+})
+
 app.get("/register",(req,res)=>{
     res.render("register");
 })
